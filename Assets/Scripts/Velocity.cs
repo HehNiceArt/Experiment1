@@ -21,7 +21,6 @@ public class Velocity : MonoBehaviour
 
     private void Update()
     {
-        cam.transform.position = new Vector3(rb.position.x, rb.position.y, cam.transform.position.z);
 
         //Rotation of the gameobject
         rb.angularVelocity = OwnDepthCalc();
