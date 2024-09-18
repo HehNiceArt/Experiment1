@@ -16,27 +16,26 @@ public class Velocity : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        float d = OwnDepthCalc();
-        Debug.Log(d);
-        PositionCalc(d);
+        PositionCalc(OwnDepthCalc());
     }
 
     private void Update()
     {
         cam.transform.position = new Vector3(rb.position.x, rb.position.y, cam.transform.position.z);
 
-        float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
-        rb.rotation = angle;
+        //Rotation of the gameobject
+        rb.angularVelocity = OwnDepthCalc();
+
         if (rb.transform.position.y <= target.transform.position.y)
         {
             rb.velocity = new Vector2(0, 0);
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 
     void PositionCalc(float d)
     {
-        rb.position = new Vector2(target.transform.position.x, depth);
+        rb.position = new Vector2(target.transform.position.x, d);
     }
 
     float OwnDepthCalc()
